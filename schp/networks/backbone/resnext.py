@@ -139,11 +139,13 @@ class ResNeXt(nn.Module):
 
 
 def resnext101(pretrained=False, **kwargs):
-    """Constructs a ResNet-101 model.
+    """Constructs a ResNeXt-101 model.
     Args:
         pretrained (bool): If True, returns a model pre-trained on Places
     """
     model = ResNeXt(GroupBottleneck, [3, 4, 23, 3], **kwargs)
     if pretrained:
-        model.load_state_dict(load_url(model_urls['resnext101']), strict=False)
+        model_path = '/root/comfy/ComfyUI/models/resnet/resnext101-imagenet.pth'
+        if os.path.exists(model_path):
+            model.load_state_dict(torch.load(model_path), strict=False)
     return model
